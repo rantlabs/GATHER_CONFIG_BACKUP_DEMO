@@ -1,0 +1,68 @@
+############
+show running
+############
+! Command: show running-config
+! device: R6 (vEOS, EOS-4.25.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model ribd
+!
+hostname R6
+!
+spanning-tree mode mstp
+!
+aaa authorization exec default local
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$UbpvBBuiuv6W7yQh$a8pPUyK3dlxinShmfyORAzVzYQWY03FftQOHcqseHQKOIKHlvmWQq7RauDTEQ47Ek7FFVfTXiUR2HSV6u6vmW.
+!
+vlan 10
+   name access_vlan
+!
+interface Ethernet1
+   no switchport
+   ip address 1.1.1.9/31
+!
+interface Ethernet2
+   no switchport
+   ip address 1.1.1.15/31
+!
+interface Ethernet3
+   description EXPELLIARMUS!!!
+   switchport access vlan 10
+!
+interface Ethernet4
+   shutdown
+   switchport access vlan 10
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Loopback0
+   ip address 192.168.1.6/32
+!
+interface Management1
+   ip address 192.168.12.106/24
+!
+interface Vlan10
+   ip address 10.0.3.1/24
+!
+ip routing
+!
+router ospf 10
+   network 1.1.1.9/32 area 0.0.0.0
+   network 1.1.1.15/32 area 0.0.0.0
+   network 10.0.3.1/32 area 0.0.0.2
+   network 192.168.1.6/32 area 0.0.0.2
+   max-lsa 12000
+!
+end

@@ -1,0 +1,64 @@
+############
+show running
+############
+
+! Command: show running-config
+! device: R4 (vEOS, EOS-4.25.2F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model ribd
+!
+hostname R4
+!
+spanning-tree mode mstp
+!
+aaa authorization exec default local
+!
+no aaa root
+!
+username admin privilege 15 role network-admin secret sha512 $6$ZqXfKo3Ye/Kb2HwV$qfSDlFD5/qjvJNanC0aD8h/bV3Aczyz7vnBG8Ef4ruK.9fppXkpVBslYaounP6h7rkVlw7nW4p4NMIpC.LQmf/
+!
+interface Ethernet1
+   no switchport
+   ip address 1.1.1.1/31
+!
+interface Ethernet2
+   no switchport
+   ip address 1.1.1.7/31
+!
+interface Ethernet3
+   no switchport
+   ip address 1.1.1.14/31
+!
+interface Ethernet4
+   no switchport
+   ip address 1.1.1.10/31
+!
+interface Ethernet5
+!
+interface Ethernet6
+!
+interface Ethernet7
+!
+interface Ethernet8
+!
+interface Loopback0
+   ip address 192.168.1.4/32
+!
+interface Management1
+   ip address 192.168.12.104/24
+!
+ip routing
+!
+router ospf 10
+   network 1.1.1.1/32 area 0.0.0.0
+   network 1.1.1.7/32 area 0.0.0.0
+   network 1.1.1.10/32 area 0.0.0.0
+   network 1.1.1.14/32 area 0.0.0.0
+   network 192.168.1.4/32 area 0.0.0.0
+   max-lsa 12000
+!
+end
